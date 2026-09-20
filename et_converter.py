@@ -30,6 +30,12 @@ FORMAT_GROUPS = {
         "program_id": "wpp.Application", "com_formats": {".pptx": 24, ".ppt": 1},
         "lo_formats": {".pptx": "Impress MS PowerPoint 2007 XML", ".ppt": "MS PowerPoint 97"},
     },
+    "fixed_layout": {
+        "label": "OFD 版式文档", "sources": (".ofd",),
+        "targets": {".pdf": "PDF 文档 (.pdf)"},
+        "program_id": "wps.Application", "com_formats": {".pdf": 17},
+        "lo_formats": {},
+    },
 }
 
 
@@ -66,7 +72,7 @@ def convert_with_wps(source: Path, destination: Path) -> None:
         app.DisplayAlerts = False
         if group_name == "spreadsheet":
             book = app.Workbooks.Open(str(source.resolve()))
-        elif group_name == "document":
+        elif group_name in ("document", "fixed_layout"):
             book = app.Documents.Open(str(source.resolve()))
         else:
             book = app.Presentations.Open(str(source.resolve()), ReadOnly=True, Untitled=False, WithWindow=False)
@@ -104,6 +110,8 @@ def convert_with_libreoffice(source: Path, destination: Path) -> None:
         raise ConversionError("找不到 WPS 或 LibreOffice。请安装 WPS 表格，或安装 LibreOffice 并加入 PATH。")
 
     group = FORMAT_GROUPS[file_group(source)]
+    if destination.suffix.lower() not in group["lo_formats"]:
+        raise ConversionError("OFD 转 PDF 需要安装 WPS Office；LibreOffice 不支持可靠导入 OFD。")
     # LibreOffice writes to an output directory rather than an exact filename.
     output_dir = destination.parent
     filter_name = group["lo_formats"][destination.suffix.lower()]

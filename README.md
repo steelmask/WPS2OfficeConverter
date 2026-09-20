@@ -7,6 +7,7 @@
 | WPS 表格 `.et` / `.ett` | Excel `.xlsx` / `.xls` |
 | WPS 文字 `.wps` / `.wpt` | Word `.docx` / `.doc` |
 | WPS 演示 `.dps` / `.dpt` | PowerPoint `.pptx` / `.ppt` |
+| OFD 版式文档 `.ofd` | PDF `.pdf` |
 
 ## 使用前准备
 
@@ -18,6 +19,8 @@ py et_converter.py
 ```
 
 若电脑没有 WPS，工具会自动尝试使用 LibreOffice；请先安装 LibreOffice，并让 `soffice.exe` 可被系统找到。
+
+OFD 转 PDF 需要安装 WPS Office。OFD 是固定版式格式，转换为 PDF 用于通用阅读与归档，不能转换为可编辑的 Word 文档并保证原始版式。
 
 ## 使用方法
 

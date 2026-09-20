@@ -23,6 +23,7 @@ class WorkerErrorTests(unittest.TestCase):
         self.assertEqual(file_group(Path("book.et")), "spreadsheet")
         self.assertEqual(file_group(Path("document.wps")), "document")
         self.assertEqual(file_group(Path("slides.dps")), "presentation")
+        self.assertEqual(file_group(Path("document.ofd")), "fixed_layout")
 
     def test_conversion_error_is_reported_after_worker_returns(self):
         """The deferred Tk callback must retain the exception text."""
