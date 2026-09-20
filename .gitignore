@@ -1,0 +1,16 @@
+# Python and local tooling
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local builds and user-generated conversion results
+work/
+outputs/
+build/
+dist/
+*.spec
+
+# Do not publish source ET workbooks or converted test material
+*.et
+*_test.xls
+*_test.xlsx
